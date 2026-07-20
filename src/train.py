@@ -7,6 +7,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
 
 from src.data import load_diabetes_data
 from src.evaluate import evaluate_binary_classifier
@@ -78,6 +79,44 @@ def train_and_evaluate_baselines():
                     ),
                 ),
             ]
+        ),
+
+        # Random forest baseline:
+        # A random forest is a collection of decision trees.
+        #
+        # Each tree learns rules like:
+        #     if bmi is high and age is high and highbp == 1,
+        #     then diabetes risk may be higher.
+        #
+        # Why we use it:
+        #     Logistic regression is simpler and more linear.
+        #     Random forest can capture more complex/nonlinear patterns.
+        #
+        # Important:
+        #     More complex does not automatically mean better.
+        #     We still need to compare metrics on the test set.
+        "random_forest": RandomForestClassifier(
+            # Number of trees in the forest.
+            # More trees usually gives more stable predictions,
+            # but also takes longer to train.
+            n_estimators=100,
+
+            # Limits how deep each tree can grow.
+            # This helps prevent the model from memorizing the training data.
+            max_depth=8,
+
+            # Each final leaf must contain at least 50 samples.
+            # This also helps prevent overfitting.
+            min_samples_leaf=50,
+
+            # Helps the model pay more attention to the minority positive class.
+            class_weight="balanced",
+
+            # Makes the random parts reproducible.
+            random_state=42,
+
+            # Uses all available CPU cores to train faster.
+            n_jobs=-1,
         ),
     }
 
