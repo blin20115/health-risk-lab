@@ -1,0 +1,64 @@
+"""
+Threshold analysis reference
+
+The logistic regression model outputs a probability for the positive class.
+
+Positive class:
+    1 = diabetes or prediabetes
+
+Negative class:
+    0 = no diabetes
+
+A threshold converts predicted probabilities into final 0/1 predictions.
+
+Example:
+    threshold = 0.5
+
+    if predicted_probability >= 0.5:
+        predict 1
+    else:
+        predict 0
+
+Lower threshold:
+    - predicts more people as positive
+    - usually increases recall
+    - usually decreases precision
+    - catches more true diabetes/prediabetes cases
+    - also creates more false positives
+
+Higher threshold:
+    - predicts fewer people as positive
+    - usually increases precision
+    - usually decreases recall
+    - creates fewer false positives
+    - misses more true diabetes/prediabetes cases
+
+Metrics:
+    Precision:
+        Of the people the model flagged as positive, how many were actually positive?
+
+    Recall:
+        Of the people who were actually positive, how many did the model catch?
+
+    F1:
+        A balance between precision and recall.
+
+    Positive rate predicted:
+        The fraction of the test set that the model predicted as positive.
+        This tells us how aggressive the threshold is.
+
+Project takeaway:
+    There is no single "correct" threshold.
+    In a health-risk setting, the threshold should depend on whether we care more
+    about catching as many at-risk people as possible or avoiding false alarms.
+"""
+threshold,precision,recall,f1,positive_rate_predicted
+0.1,0.16687646961024155,0.9939171028434007,0.28577239079150735,0.8298446862188584
+0.2,0.20307014934253584,0.9656245579289857,0.33557013986185874,0.6625275938189845
+0.3,0.23841911764705884,0.9173857688499081,0.37847617380139487,0.5361084831283507
+0.4,0.2739862870635245,0.8535860800679022,0.41482194417709334,0.4340704824976348
+0.5,0.3107491480390458,0.7610694581977648,0.441309162496924,0.34123699148533587
+0.6,0.3544998068752414,0.6491724430612533,0.4585789947037074,0.2551442762535478
+0.7,0.4003864075463121,0.49837317866742115,0.4440383161078901,0.1734271523178808
+0.8,0.4556830031282586,0.30909605318998445,0.36834120026972356,0.09450883002207505
+0.9,0.5282890252215405,0.10963361154335832,0.1815838800374883,0.02891438032166509
