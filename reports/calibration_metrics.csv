@@ -1,0 +1,3 @@
+model,brier_score
+logistic_regression,0.17757802687040822
+random_forest,0.17844266625615812
