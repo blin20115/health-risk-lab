@@ -141,6 +141,26 @@ The calibration curves did not closely follow the perfect calibration diagonal, 
 
 ![Calibration Curves](results/figures/calibration_curves.png)
 
+## Feature Importance
+
+Feature importance helps explain which variables the models used most when predicting diabetes/prediabetes risk.
+
+Both logistic regression and random forest identified similar top predictors, including:
+
+- general health
+- BMI
+- age
+- high blood pressure
+- high cholesterol
+
+Logistic regression coefficients show both direction and strength. Random forest importance shows how useful each feature was for splitting the data, but does not directly show direction.
+
+These results should be interpreted as predictive associations, not causal claims.
+
+![Logistic Regression Feature Importance](results/figures/logistic_feature_importance.png)
+
+![Random Forest Feature Importance](results/figures/random_forest_feature_importance.png)
+
 ## Project Structure
 
 ```text

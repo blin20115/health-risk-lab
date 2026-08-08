@@ -123,6 +123,57 @@ Logistic regression had a slightly lower Brier score than random forest, but the
 
 The calibration curves did not closely follow the perfect calibration diagonal, which suggests that the predicted probabilities should not be interpreted as exact risk estimates without further calibration.
 
+## Feature Importance Analysis
+
+Feature importance helps explain which variables the models used most when predicting diabetes/prediabetes risk.
+
+This project compares feature importance from:
+
+- logistic regression coefficients
+- random forest feature importances
+
+Logistic regression coefficients provide both strength and direction. A positive coefficient means higher feature values push the model toward predicting diabetes/prediabetes. A negative coefficient means higher feature values push the model toward predicting no diabetes.
+
+Random forest feature importance measures how useful each feature was for splitting the data across the trees. It shows strength, but not direction.
+
+### Top Logistic Regression Features
+
+| Feature | Coefficient | Absolute Coefficient |
+|---|---:|---:|
+| genhlth | 0.6188 | 0.6188 |
+| bmi | 0.4906 | 0.4906 |
+| age | 0.4574 | 0.4574 |
+| highbp | 0.3643 | 0.3643 |
+| highchol | 0.2873 | 0.2873 |
+| cholcheck | 0.2477 | 0.2477 |
+| hvyalcoholconsump | -0.1730 | 0.1730 |
+| sex | 0.1392 | 0.1392 |
+| income | -0.1193 | 0.1193 |
+| heartdiseaseorattack | 0.0730 | 0.0730 |
+
+### Top Random Forest Features
+
+| Feature | Random Forest Importance |
+|---|---:|
+| highbp | 0.2457 |
+| genhlth | 0.2445 |
+| bmi | 0.1317 |
+| highchol | 0.1092 |
+| age | 0.0952 |
+| diffwalk | 0.0567 |
+| heartdiseaseorattack | 0.0295 |
+| income | 0.0238 |
+| physhlth | 0.0225 |
+| physactivity | 0.0086 |
+
+### Interpretation
+
+Both models identified general health, BMI, age, high blood pressure, and high cholesterol as important predictors.
+
+This agreement is useful because logistic regression and random forest are different types of models. Logistic regression is simpler and more linear, while random forest can capture more complex patterns.
+
+However, these results should not be interpreted causally. The model is identifying features that are useful for prediction, not proving that those features cause diabetes/prediabetes.
+
 ## Main Takeaways
 
 1. Accuracy is misleading for this dataset because the target is imbalanced.
