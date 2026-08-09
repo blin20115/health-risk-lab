@@ -174,6 +174,34 @@ Cross-validation showed that both logistic regression and random forest had low 
 
 Random forest had slightly higher recall, ROC-AUC, and average precision, while logistic regression had slightly better precision and F1. The differences were small, so logistic regression remains a strong simple baseline.
 
+## Final Conclusion
+
+This project showed that accuracy alone is not a reliable metric for diabetes/prediabetes risk prediction because the dataset is highly imbalanced.
+
+The dummy classifier achieved high accuracy by predicting the majority class, but it had zero recall and failed to identify any positive cases. Logistic regression and random forest both performed much better by detecting a meaningful share of diabetes/prediabetes cases.
+
+Random forest had slightly higher recall, ROC-AUC, and average precision, meaning it caught more positive cases and ranked examples slightly better. However, logistic regression had slightly better precision and F1, was easier to interpret, and had slightly better calibration.
+
+Overall, logistic regression remained a strong baseline because it was simple, interpretable, and performed similarly to the more complex random forest model.
+
+The most important lesson from this project is that model evaluation depends on the real-world goal. In a health-risk setting, threshold choice matters because lowering the threshold catches more at-risk people but also increases false positives.
+
+## Limitations
+
+This project uses survey data, not direct clinical measurements.
+
+The model should not be used for real medical diagnosis, treatment decisions, or clinical decision-making.
+
+The target label represents diabetes/prediabetes status in the dataset, but it may not perfectly reflect clinical diagnosis.
+
+The model was trained and evaluated on one dataset source, so the results may not generalize to other populations.
+
+Some features, such as income, education, and sex, may raise fairness concerns if used in real-world decision-making.
+
+Feature importance should be interpreted as predictive association, not causation.
+
+The calibration analysis suggests that predicted probabilities should not be treated as exact medical risk estimates without further calibration.
+
 ## Project Structure
 
 ```text
@@ -188,15 +216,26 @@ health-risk-lab/
     threshold_analysis.py
     confusion_analysis.py
     calibration_analysis.py
+    feature_importance.py
+    cross_validation.py
 
   notebooks/
     01_explore_data.ipynb
 
   reports/
     model_findings.md
+    model_card.md
     threshold_metrics.csv
     calibration_metrics.csv
+    feature_importance.csv
+    cross_validation_metrics.csv
 
   results/
     baseline_metrics.json
     figures/
+      threshold_tradeoff.png
+      calibration_curves.png
+      logistic_feature_importance.png
+      random_forest_feature_importance.png
+      confusion_matrix_threshold_0.5.png
+      confusion_matrix_threshold_0.6.png

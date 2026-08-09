@@ -221,6 +221,20 @@ Overall, random forest was not clearly better despite being more complex. Logist
 
 6. Calibration analysis suggests that model probabilities should be treated carefully.
 
+## Final Conclusion
+
+The main finding from this project is that diabetes/prediabetes risk prediction should be evaluated with more than accuracy.
+
+Because only about 14% of the dataset belongs to the positive class, the dummy model achieved high accuracy by always predicting no diabetes. However, it had zero recall and was not useful for identifying diabetes/prediabetes cases.
+
+Logistic regression and random forest both performed much better than the dummy baseline. Random forest had slightly better recall, ROC-AUC, and average precision, while logistic regression had slightly better precision, F1, interpretability, and calibration.
+
+The differences between logistic regression and random forest were small, especially in cross-validation. This suggests that the simpler logistic regression model is a strong baseline for this dataset.
+
+The threshold analysis showed that the model's behavior depends heavily on the chosen decision threshold. Lower thresholds catch more positive cases but create more false positives, while higher thresholds improve precision but miss more positive cases.
+
+For a health-risk setting, the best threshold should depend on the relative cost of false negatives and false positives, not just the default threshold or highest accuracy.
+
 ## Limitations
 
 This project uses survey data, not clinical diagnosis data.
