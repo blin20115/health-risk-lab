@@ -161,6 +161,19 @@ These results should be interpreted as predictive associations, not causal claim
 
 ![Random Forest Feature Importance](results/figures/random_forest_feature_importance.png)
 
+## Cross-Validation Stability
+
+To check whether the results were stable, I also ran 3-fold stratified cross-validation.
+
+Cross-validation showed that both logistic regression and random forest had low standard deviation across folds, suggesting that performance was not just due to one lucky train/test split.
+
+| Model | ROC-AUC Mean | ROC-AUC Std | Recall Mean | Recall Std | Average Precision Mean |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.8224 | 0.0026 | 0.7653 | 0.0082 | 0.4030 |
+| Random Forest | 0.8234 | 0.0016 | 0.7868 | 0.0026 | 0.4208 |
+
+Random forest had slightly higher recall, ROC-AUC, and average precision, while logistic regression had slightly better precision and F1. The differences were small, so logistic regression remains a strong simple baseline.
+
 ## Project Structure
 
 ```text

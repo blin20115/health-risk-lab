@@ -174,6 +174,39 @@ This agreement is useful because logistic regression and random forest are diffe
 
 However, these results should not be interpreted causally. The model is identifying features that are useful for prediction, not proving that those features cause diabetes/prediabetes.
 
+## Cross-Validation Stability Analysis
+
+Cross-validation evaluates models across multiple train/validation splits.
+
+This helps answer whether the model performance is stable or whether the earlier train/test result may have been lucky.
+
+In this project, I used 3-fold stratified cross-validation. Stratification keeps the diabetes/prediabetes class ratio similar across folds, which matters because the dataset is imbalanced.
+
+| Model | Metric | Mean | Std |
+|---|---|---:|---:|
+| Logistic Regression | Accuracy | 0.7314 | 0.0007 |
+| Logistic Regression | Precision | 0.3113 | 0.0009 |
+| Logistic Regression | Recall | 0.7653 | 0.0082 |
+| Logistic Regression | F1 | 0.4426 | 0.0022 |
+| Logistic Regression | ROC-AUC | 0.8224 | 0.0026 |
+| Logistic Regression | Average Precision | 0.4030 | 0.0022 |
+| Random Forest | Accuracy | 0.7191 | 0.0017 |
+| Random Forest | Precision | 0.3038 | 0.0013 |
+| Random Forest | Recall | 0.7868 | 0.0026 |
+| Random Forest | F1 | 0.4384 | 0.0013 |
+| Random Forest | ROC-AUC | 0.8234 | 0.0016 |
+| Random Forest | Average Precision | 0.4208 | 0.0019 |
+
+### Interpretation
+
+Both models were stable across folds because the standard deviations were small.
+
+Random forest had slightly higher recall, ROC-AUC, and average precision. This means it caught more positive diabetes/prediabetes cases and had slightly better ranking performance.
+
+Logistic regression had slightly higher precision and F1. This means it had a slightly better balance between precision and recall at the default threshold.
+
+Overall, random forest was not clearly better despite being more complex. Logistic regression remains a strong baseline because it is simpler, more interpretable, and performs similarly across validation folds.
+
 ## Main Takeaways
 
 1. Accuracy is misleading for this dataset because the target is imbalanced.
