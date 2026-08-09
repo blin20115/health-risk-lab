@@ -1,6 +1,6 @@
 # HealthRiskLab
 
-HealthRiskLab is a diabetes risk model evaluation project using the CDC Diabetes Health Indicators dataset.
+HealthRiskLab is a diabetes risk model evaluation project using the [CDC Diabetes Health Indicators dataset](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators).
 
 The goal is not just to train a classifier, but to evaluate health-risk prediction models carefully under class imbalance.
 

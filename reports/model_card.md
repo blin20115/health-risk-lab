@@ -39,7 +39,7 @@ The dataset is based on survey responses, not direct clinical diagnosis data.
 
 ## Dataset
 
-Dataset: CDC Diabetes Health Indicators
+Dataset: [CDC Diabetes Health Indicators](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators)
 
 The dataset contains:
 
