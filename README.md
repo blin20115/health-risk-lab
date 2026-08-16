@@ -267,14 +267,18 @@ health-risk-lab/
   requirements.txt
 
   src/
+    __init__.py
     data.py
     evaluate.py
     train.py
     threshold_analysis.py
     confusion_analysis.py
     calibration_analysis.py
+    calibrated_models.py
+    calibrated_threshold_analysis.py
     feature_importance.py
     cross_validation.py
+    fairness_analysis.py
 
   notebooks/
     01_explore_data.ipynb
@@ -284,15 +288,24 @@ health-risk-lab/
     model_card.md
     threshold_metrics.csv
     calibration_metrics.csv
+    calibrated_model_metrics.csv
+    calibrated_threshold_metrics.csv
     feature_importance.csv
     cross_validation_metrics.csv
+    fairness_metrics.csv
 
   results/
     baseline_metrics.json
     figures/
       threshold_tradeoff.png
       calibration_curves.png
+      calibrated_model_curves.png
+      calibrated_threshold_logistic_regression.png
+      calibrated_threshold_random_forest.png
       logistic_feature_importance.png
       random_forest_feature_importance.png
       confusion_matrix_threshold_0.5.png
       confusion_matrix_threshold_0.6.png
+      fairness_income_recall_fnr.png
+      fairness_education_recall_fnr.png
+      fairness_sex_recall_fnr.png
