@@ -127,6 +127,25 @@ Calibration analysis showed that logistic regression and random forest had simil
 
 The calibration curves did not closely follow the perfect calibration diagonal, so predicted probabilities should not be interpreted as exact risk estimates without further calibration.
 
+### Calibrated Classifier Results
+
+I also evaluated sigmoid-calibrated versions of logistic regression and random forest.
+
+Calibration substantially improved Brier score:
+
+| Model | Uncalibrated Brier Score | Calibrated Brier Score |
+|---|---:|---:|
+| Logistic Regression | 0.1776 | 0.1001 |
+| Random Forest | 0.1784 | 0.0986 |
+
+This suggests that calibrated models produced more reliable probability estimates.
+
+However, at the default threshold of 0.5, calibrated models predicted far fewer positive cases and recall dropped sharply. This means that calibration improved probability quality, but it did not automatically produce a good final classification threshold.
+
+Because this is an imbalanced health-risk prediction task, lower calibrated thresholds may be more appropriate depending on the goal. For example, thresholds around 0.15 to 0.25 produced more useful precision-recall tradeoffs.
+
+This reinforces that predicted probabilities and final classification decisions should be treated separately.
+
 ## Feature Importance
 
 Both logistic regression and random forest identified similar important predictors, including:

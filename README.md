@@ -141,6 +141,42 @@ The calibration curves did not closely follow the perfect calibration diagonal, 
 
 ![Calibration Curves](results/figures/calibration_curves.png)
 
+## Calibrated Classifiers
+
+I also tested sigmoid-calibrated versions of logistic regression and random forest.
+
+Calibration improved the Brier scores substantially:
+
+| Model | Calibration | Brier Score | Recall at 0.5 Threshold | Positive Rate Predicted |
+|---|---|---:|---:|---:|
+| Logistic Regression | Uncalibrated | 0.1776 | 0.7611 | 0.3412 |
+| Logistic Regression | Sigmoid Calibrated | 0.1001 | 0.1565 | 0.0423 |
+| Random Forest | Uncalibrated | 0.1784 | 0.7850 | 0.3623 |
+| Random Forest | Sigmoid Calibrated | 0.0986 | 0.1317 | 0.0333 |
+
+Lower Brier score means better probability calibration, so sigmoid calibration made the predicted probabilities more trustworthy.
+
+However, at the default threshold of 0.5, the calibrated models predicted very few positive cases and recall dropped sharply. This shows that calibration and threshold selection are separate steps.
+
+Because the dataset is imbalanced, a calibrated probability below 0.5 can still be meaningful. I tested lower thresholds for the calibrated models and found that thresholds around 0.15 to 0.25 restored a more useful precision-recall tradeoff.
+
+For example:
+
+| Model | Threshold | Precision | Recall | F1 | Positive Rate Predicted |
+|---|---:|---:|---:|---:|---:|
+| Calibrated Logistic Regression | 0.15 | 0.3185 | 0.7414 | 0.4456 | 0.3243 |
+| Calibrated Logistic Regression | 0.20 | 0.3602 | 0.6306 | 0.4585 | 0.2439 |
+| Calibrated Random Forest | 0.15 | 0.3127 | 0.7520 | 0.4418 | 0.3350 |
+| Calibrated Random Forest | 0.25 | 0.3784 | 0.5891 | 0.4608 | 0.2169 |
+
+This reinforced one of the main project lessons: calibrated probabilities are useful, but the final threshold still needs to be chosen based on the real-world goal.
+
+![Calibrated Model Curves](results/figures/calibrated_model_curves.png)
+
+![Calibrated Logistic Regression Thresholds](results/figures/calibrated_threshold_logistic_regression.png)
+
+![Calibrated Random Forest Thresholds](results/figures/calibrated_threshold_random_forest.png)
+
 ## Feature Importance
 
 Feature importance helps explain which variables the models used most when predicting diabetes/prediabetes risk.

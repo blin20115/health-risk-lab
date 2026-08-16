@@ -221,6 +221,60 @@ Overall, random forest was not clearly better despite being more complex. Logist
 
 6. Calibration analysis suggests that model probabilities should be treated carefully.
 
+## Calibrated Classifier Analysis
+
+Calibration checks whether predicted probabilities are trustworthy.
+
+Earlier calibration analysis showed that the uncalibrated models had Brier scores around 0.18. I then tested sigmoid calibration to see whether probability estimates could be improved.
+
+| Model | Calibration Type | Accuracy | Precision | Recall | F1 | ROC-AUC | Average Precision | Brier Score | Positive Rate Predicted |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | Uncalibrated | 0.7315 | 0.3107 | 0.7611 | 0.4413 | 0.8196 | 0.3926 | 0.1776 | 0.3412 |
+| Logistic Regression | Sigmoid Calibrated | 0.8620 | 0.5154 | 0.1565 | 0.2400 | 0.8196 | 0.3926 | 0.1001 | 0.0423 |
+| Random Forest | Uncalibrated | 0.7171 | 0.3019 | 0.7850 | 0.4361 | 0.8198 | 0.4099 | 0.1784 | 0.3623 |
+| Random Forest | Sigmoid Calibrated | 0.8640 | 0.5506 | 0.1317 | 0.2126 | 0.8200 | 0.4100 | 0.0986 | 0.0333 |
+
+Sigmoid calibration substantially improved Brier score for both models:
+
+- logistic regression: 0.1776 to 0.1001
+- random forest: 0.1784 to 0.0986
+
+This suggests that calibration made the probability estimates more reliable.
+
+However, calibration also made the models much more conservative at the default 0.5 threshold. The calibrated logistic regression model predicted only 4.23% of test examples as positive, and the calibrated random forest predicted only 3.33% as positive. As a result, recall dropped sharply.
+
+This does not mean calibration made the models worse overall. It means that after calibration, the default threshold of 0.5 was no longer a good choice for this imbalanced health-risk task.
+
+### Calibrated Threshold Analysis
+
+To address this, I evaluated calibrated models across lower thresholds.
+
+| Model | Threshold | Precision | Recall | False Negative Rate | F1 | Positive Rate Predicted |
+|---|---:|---:|---:|---:|---:|---:|
+| Calibrated Logistic Regression | 0.05 | 0.2121 | 0.9549 | 0.0451 | 0.3471 | 0.6273 |
+| Calibrated Logistic Regression | 0.10 | 0.2727 | 0.8567 | 0.1433 | 0.4137 | 0.4377 |
+| Calibrated Logistic Regression | 0.15 | 0.3185 | 0.7414 | 0.2586 | 0.4456 | 0.3243 |
+| Calibrated Logistic Regression | 0.20 | 0.3602 | 0.6306 | 0.3694 | 0.4585 | 0.2439 |
+| Calibrated Random Forest | 0.10 | 0.2757 | 0.8417 | 0.1583 | 0.4154 | 0.4254 |
+| Calibrated Random Forest | 0.15 | 0.3127 | 0.7520 | 0.2480 | 0.4418 | 0.3350 |
+| Calibrated Random Forest | 0.20 | 0.3454 | 0.6752 | 0.3248 | 0.4570 | 0.2724 |
+| Calibrated Random Forest | 0.25 | 0.3784 | 0.5891 | 0.4109 | 0.4608 | 0.2169 |
+
+The best F1 scores occurred around:
+
+- calibrated logistic regression: threshold 0.20
+- calibrated random forest: threshold 0.25
+
+However, if the goal is to catch more diabetes/prediabetes cases, thresholds around 0.15 may be more appropriate because they preserve recall around 74 to 75%.
+
+### Calibration Takeaway
+
+Calibration and threshold selection solve different problems.
+
+Calibration improves the quality of predicted probabilities. Threshold selection determines how those probabilities are converted into final decisions.
+
+For an imbalanced health-risk task, the default threshold of 0.5 is not automatically appropriate, even after calibration.
+
 ## Fairness / Subgroup Analysis
 
 I evaluated logistic regression performance across sex, income, and education subgroups.
