@@ -221,6 +221,60 @@ Overall, random forest was not clearly better despite being more complex. Logist
 
 6. Calibration analysis suggests that model probabilities should be treated carefully.
 
+## Fairness / Subgroup Analysis
+
+I evaluated logistic regression performance across sex, income, and education subgroups.
+
+The goal was to check whether average model performance hides differences in error patterns across groups.
+
+### Sex
+
+The model had relatively similar recall across sex groups:
+
+| Group | Actual Positive Rate | Recall | False Positive Rate | False Negative Rate |
+|---|---:|---:|---:|---:|
+| sex = 0 | 0.1292 | 0.7522 | 0.2475 | 0.2478 |
+| sex = 1 | 0.1524 | 0.7707 | 0.3073 | 0.2293 |
+
+The difference in recall across sex groups was small.
+
+### Income
+
+The model showed larger differences across income groups.
+
+Lower income groups had higher recall but also higher false positive rates:
+
+| Income Group | Actual Positive Rate | Recall | False Positive Rate | False Negative Rate |
+|---|---:|---:|---:|---:|
+| 1 | 0.2447 | 0.8821 | 0.4966 | 0.1179 |
+| 2 | 0.2710 | 0.8968 | 0.5676 | 0.1032 |
+| 3 | 0.2233 | 0.8966 | 0.4882 | 0.1034 |
+| 8 | 0.0810 | 0.5831 | 0.1393 | 0.4169 |
+
+This suggests the model was more aggressive about flagging lower-income respondents as positive, while it missed a larger share of positive cases in the highest income group.
+
+### Education
+
+A similar pattern appeared across education groups.
+
+Lower education groups had higher recall and higher false positive rates, while the highest education group had lower recall and a higher false negative rate.
+
+| Education Group | Actual Positive Rate | Recall | False Positive Rate | False Negative Rate |
+|---|---:|---:|---:|---:|
+| 2 | 0.2780 | 0.9140 | 0.6254 | 0.0860 |
+| 3 | 0.2466 | 0.8755 | 0.5281 | 0.1245 |
+| 6 | 0.0946 | 0.6524 | 0.1755 | 0.3476 |
+
+The group `education = 1` had only 32 examples in the test set, so its metrics should be interpreted cautiously.
+
+### Fairness Takeaway
+
+Subgroup analysis showed that model performance varied more across income and education groups than across sex groups.
+
+Lower income and lower education groups tended to have higher recall but also higher false positive rates. Higher income and higher education groups tended to have lower recall and higher false negative rates.
+
+This does not prove that the model is fair or unfair, but it shows that average model metrics are not enough. Before any real-world use, the model would need more careful subgroup-level evaluation.
+
 ## Final Conclusion
 
 The main finding from this project is that diabetes/prediabetes risk prediction should be evaluated with more than accuracy.

@@ -165,6 +165,12 @@ These variables may improve prediction performance, but they can also introduce 
 
 Before any real-world use, the model would need further analysis across demographic groups, including subgroup-level precision, recall, false positive rates, and false negative rates.
 
+Subgroup analysis found that model error patterns differed across income and education groups.
+
+Lower income and lower education groups tended to have higher recall but also higher false positive rates. Higher income and higher education groups tended to have lower recall and higher false negative rates.
+
+This suggests that average model performance may hide important subgroup-level differences. The model should not be used in real-world decision-making without further fairness evaluation, external validation, and careful review of how demographic and socioeconomic features are used.
+
 ## Future Work
 
 Potential next steps include:

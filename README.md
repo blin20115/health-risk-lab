@@ -174,6 +174,27 @@ Cross-validation showed that both logistic regression and random forest had low 
 
 Random forest had slightly higher recall, ROC-AUC, and average precision, while logistic regression had slightly better precision and F1. The differences were small, so logistic regression remains a strong simple baseline.
 
+## Fairness / Subgroup Analysis
+
+I also evaluated the logistic regression model across subgroups for sex, income, and education.
+
+This analysis checks whether the model makes different types of errors for different groups. In a health-risk setting, false negatives are especially important because they represent missed diabetes/prediabetes cases.
+
+The model showed relatively similar recall across sex groups:
+
+| Group | Recall | False Negative Rate |
+|---|---:|---:|
+| sex = 0 | 0.7522 | 0.2478 |
+| sex = 1 | 0.7707 | 0.2293 |
+
+The differences were larger across income and education groups. Lower income and lower education groups tended to have higher recall, but also higher false positive rates. Higher income and higher education groups tended to have lower recall and higher false negative rates.
+
+This suggests that average model metrics hide subgroup-level differences, so fairness analysis would be important before any real-world use.
+
+![Fairness by Income](results/figures/fairness_income_recall_fnr.png)
+
+![Fairness by Education](results/figures/fairness_education_recall_fnr.png)
+
 ## Final Conclusion
 
 This project showed that accuracy alone is not a reliable metric for diabetes/prediabetes risk prediction because the dataset is highly imbalanced.
